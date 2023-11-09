@@ -1,26 +1,32 @@
 function getComputerChoice() {
-  const move = ["rock", "paper", "scissors"]
-  i = Math.floor(Math.random() * move.length);
-  return move[i]
+  const computerMove = ["Rock", "Paper", "Scissors"]
+  i = Math.floor(Math.random() * computerMove.length);
+  return computerMove[i]
 }
 
+//Plays a round and returns a point or error (999)
 function playRound(playerSelection, computerSelection) {
   switch (playerSelection) {
-    case "rock":
-      return computerSelection=="scissors" ? 1 : 0;
-    case "paper":
-      return computerSelection=="rock" ? 1 : 0;
-    case "scissors":
-      return computerSelection=="paper" ? 1 : 0;
+    case "Rock":
+      return computerSelection=="Scissors" ? 1 : 0;
+    case "Paper":
+      return computerSelection=="Rock" ? 1 : 0;
+    case "Scissors":
+      return computerSelection=="Paper" ? 1 : 0;
     default:
-      return 2
+      return 999
   }
+}
+
+function toTitleCase(str) {
+  str = str.toLowerCase()
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 var playerPoints = 0, computerPoints=0;
 function game() {
   let playerSelection = prompt("Rock, Paper, Scissors?");
-  playerSelection = playerSelection.toLowerCase();
+  playerSelection = toTitleCase(playerSelection);
   computerSelection = getComputerChoice();
 
   let res = playRound(playerSelection, computerSelection)
@@ -42,18 +48,17 @@ function game() {
                  " beats " + computerSelection
       return msgW
     
-    case 2:
+    case 999:
       return "Invalid Input."                 
   }
 }
 
-//Five Rounds
+//Plays five rounds
 for (let i=0; i<5; i++) {
   let res = game()
   console.log(res)
   console.log("Computer: " + computerPoints + "; You: " + playerPoints)
 }
-
 
 const finalRes = playerPoints - computerPoints;
 if (finalRes==0) {
