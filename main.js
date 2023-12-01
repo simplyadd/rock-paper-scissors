@@ -18,55 +18,75 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-function toTitleCase(str) {
-  str = str.toLowerCase()
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
+let count = 1;
 var playerPoints = 0, computerPoints=0;
-function game() {
-  let playerSelection = prompt("Rock, Paper, Scissors?");
-  playerSelection = toTitleCase(playerSelection);
-  computerSelection = getComputerChoice();
+const btns = document.querySelectorAll('button');
+const container = document.querySelector('#container');
+const h1 = document.createElement('h1');
+const p = document.createElement('p');
+const score = document.createElement('p');
 
-  let res = playRound(playerSelection, computerSelection)
+btns.forEach( (button) => {
+  button.addEventListener('click', () => { 
 
-  if (playerSelection == computerSelection) {
-    return "It's a draw!"
-  }
+    let playerSelection = button.id;
+    let computerSelection = getComputerChoice();
 
-  switch (res) {
-    case 0:
-      computerPoints++;
-      let msgL = "You lost! " + computerSelection +
-                 " beats " + playerSelection
-      return msgL
+    h1.textContent = 'Round ' + count;
+    container.appendChild(h1);
+    count += 1;
     
-    case 1:
-      playerPoints++;
-      let msgW = "You won! " + playerSelection +
-                 " beats " + computerSelection
-      return msgW
-    
-    case 999:
-      return "Invalid Input."                 
-  }
-}
+    if (playerSelection == computerSelection) {  
+      p.textContent = "It's a draw!";  
+    }
+    else {
+      let res = playRound(playerSelection, computerSelection)
+      switch (res) {
+        case 0:
+          computerPoints++;
+          let msgL = "You lost! " + computerSelection +
+                    " beats " + playerSelection
+          p.textContent = msgL;
+          break;
+        case 1:
+          playerPoints++;
+          let msgW = "You won! " + playerSelection +
+                    " beats " + computerSelection
+          p.textContent = msgW;
+          break;
+        case 999:
+          p.textContent = "Invalid Input.";
+          break;             
+      }
+    }
 
+    container.appendChild(p);
+    score.textContent = 'Computer: ' + computerPoints +
+                        '; You: ' + playerPoints;
+    
+    container.appendChild(score);
+  });
+});
+
+
+
+
+/*
 //Plays five rounds
 for (let i=0; i<5; i++) {
   let res = game()
   console.log(res)
   console.log("Computer: " + computerPoints + "; You: " + playerPoints)
 }
+*/
 
+/*
 const finalRes = playerPoints - computerPoints;
 if (finalRes==0) {
     console.log("Final Result: It's a Draw!")
-}
-else if (finalRes>0) {
+} else if (finalRes>0) {
   console.log("Final Result: You won!")
-}
-else {
+} else {
   console.log("Final Result: You lost!")
 }
+*/
