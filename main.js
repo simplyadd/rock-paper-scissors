@@ -22,6 +22,8 @@ let count = 1;
 var playerPoints = 0, computerPoints=0;
 const btns = document.querySelectorAll('button');
 const container = document.querySelector('#container');
+const div = document.createElement('div');
+
 const h1 = document.createElement('h1');
 const p = document.createElement('p');
 const score = document.createElement('p');
@@ -33,60 +35,49 @@ btns.forEach( (button) => {
     let computerSelection = getComputerChoice();
 
     h1.textContent = 'Round ' + count;
-    container.appendChild(h1);
+    div.appendChild(h1);
     count += 1;
-    
     if (playerSelection == computerSelection) {  
       p.textContent = "It's a draw!";  
-    }
-    else {
+    } else {
       let res = playRound(playerSelection, computerSelection)
       switch (res) {
         case 0:
           computerPoints++;
-          let msgL = "You lost! " + computerSelection +
-                    " beats " + playerSelection
-          p.textContent = msgL;
+          p.textContent = "You lost! " + computerSelection +
+                          " beats " + playerSelection;
           break;
         case 1:
           playerPoints++;
-          let msgW = "You won! " + playerSelection +
-                    " beats " + computerSelection
-          p.textContent = msgW;
+          p.textContent = "You won! " + playerSelection +
+                          " beats " + computerSelection;
           break;
         case 999:
           p.textContent = "Invalid Input.";
           break;             
       }
+
+      if (computerPoints == 5 || playerPoints == 5) {
+        const finalRes = playerPoints - computerPoints;
+        if (finalRes==0) {
+          p.textContent = "Final Result: It's a Draw!"
+        } else if (finalRes>0) {
+          p.textContent = "Final Result: You won!"
+        } else {
+          p.textContent = "Final Result: You lost!"
+        }
+      }
     }
 
-    container.appendChild(p);
+    div.appendChild(p);
     score.textContent = 'Computer: ' + computerPoints +
                         '; You: ' + playerPoints;
     
-    container.appendChild(score);
+    div.appendChild(score);
+    container.appendChild(div);
+
+    if (computerPoints == 5 || playerPoints == 5) {
+      count = 0, computerPoints = 0, playerPoints = 0; 
+    }
   });
 });
-
-
-
-
-/*
-//Plays five rounds
-for (let i=0; i<5; i++) {
-  let res = game()
-  console.log(res)
-  console.log("Computer: " + computerPoints + "; You: " + playerPoints)
-}
-*/
-
-/*
-const finalRes = playerPoints - computerPoints;
-if (finalRes==0) {
-    console.log("Final Result: It's a Draw!")
-} else if (finalRes>0) {
-  console.log("Final Result: You won!")
-} else {
-  console.log("Final Result: You lost!")
-}
-*/

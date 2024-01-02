@@ -1,0 +1,61 @@
+/* style.css */
+body {
+    height: 100vh; /*100% of the viewport height*/
+    margin: 0;
+    overflow: scroll;
+    font-family: Roboto, sans-serif; 
+    
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* hero header */
+.header, .footer {
+    background: #ec9573;
+    font-size: 18px;
+    color: #E5E7EB;
+    padding: 8px 48px;
+    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.header {
+    padding-bottom: 50px;
+}
+
+a {
+    text-decoration: none;
+    color: #e5e7eb;  
+}
+
+button {
+    background: #ec9573;
+    color: #f9faf8;
+    border-color: #ffbe98;
+    border-radius: 5px;
+    margin: 8px 0;
+    padding: 5px 16px;
+}
+
+/* body */
+.body {
+    color: #ec9573;
+    font-weight: 700;
+    padding: 24px 64px 64px;
+    
+    flex: 1;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: start;
+    align-items: start;
+    gap: 8px;
+}
+
+/* footer */
+.footer {
+    display: flex;
+    justify-content: center;
+}
